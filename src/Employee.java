@@ -1,18 +1,18 @@
 public class Employee {
-    private final byte id;
+    private final int id;
     private String surnameNamePatrnimic;
-    private byte departament;
+    private int departament;
     private float salary;
-    static byte counter = 0;
+    static int counter = 0;
 
-    Employee(String surnameNamePatrnimic, byte departament, float salary) {
+    Employee(String surnameNamePatrnimic, int departament, float salary) {
         id = ++counter;
         this.surnameNamePatrnimic = surnameNamePatrnimic.trim();
         this.departament = departament;
         this.salary = salary;
     }
 
-    public byte getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -20,7 +20,7 @@ public class Employee {
         return this.surnameNamePatrnimic;
     }
 
-    public byte getDepartament() {
+    public int getDepartament() {
         return this.departament;
     }
 
@@ -37,7 +37,7 @@ public class Employee {
         }
     }
 
-    public void setDepartament(byte departament) {
+    public void setDepartament(int departament) {
         if (departament >= 1 && departament <= 5) {
             this.departament = departament;
         } else {
@@ -62,13 +62,7 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        int result;
-        if (this.surnameNamePatrnimic == null || this.surnameNamePatrnimic.isBlank()) {
-            result = 0;
-        } else {
-            result = Integer.hashCode(this.departament);
-        }
-        return result;
+        return Integer.hashCode(this.departament);
     }
 
     @Override
