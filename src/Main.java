@@ -12,8 +12,16 @@ public final class Main {
             new Employee(" ", 0, 0)
     };
 
+    static void printTitle(String title) {
+        int lineLength = 100;
+        int headerLength = title.length();
+        int dob = (lineLength - headerLength) / 2;
+        String completion = "-";
+        System.out.println("\n" + completion.repeat(dob) + title + completion.repeat(dob));
+    }
+
     static boolean evaluateCell(Employee element) {
-        return (element.getSurnameNamePatrnimic() != null && !element.getSurnameNamePatrnimic().isBlank());
+        return (element.getFulname() != null && !element.getFulname().isBlank());
 
     }
 
@@ -46,86 +54,69 @@ public final class Main {
         return amount;
     }
 
-    static void findMinimumWage() {
-        float minimum = 1000000f;
-        System.out.printf("%5s%35s%10s%20s\n", "id", "Фамилия имя отчество", "Отдел", "Зарплата");
+    static void compareMoreLess(String moreLess) {
+        float minimum = employees[0].getSalary();
+        float maximum = employees[0].getSalary();
+        System.out.printf("%5s%35s%20s\n", "id", "Фамилия имя отчество", "Зарплата");
         for (Employee variable : employees) {
-            if (evaluateCell(variable)) {
-                if (minimum >= variable.getSalary()) {
+            if (variable.getFulname() != null && !variable.getFulname().isBlank()) {
+                if (minimum > variable.getSalary()) {
                     minimum = variable.getSalary();
                 }
-            }
-        }
-        int counter = 0;
-        for (Employee variable : employees) {
-            if (evaluateCell(variable)) {
-                if (minimum == variable.getSalary()) {
-                    counter++;
-                    System.out.println(variable);
-                }
-            }
-        }
-        System.out.printf("\n%s", "Минимальная зарплата сотрудника предприятия составляет: ");
-        System.out.printf("%.2f%s%d%s\n", minimum, " и её получает ", counter, " человек(а)");
-    }
-
-    static void findMaximumWage() {
-        float maximum = 0f;
-        System.out.printf("%5s%35s%10s%20s\n", "id", "Фамилия имя отчество", "Отдел", "Зарплата");
-        for (Employee variable : employees) {
-            if (evaluateCell(variable)) {
                 if (maximum <= variable.getSalary()) {
                     maximum = variable.getSalary();
                 }
             }
         }
         int counter = 0;
+        float minimumOrMaximum = minimum;
+        String outputString = "Минимальная";
+        if (moreLess.contains(">")) {
+            minimumOrMaximum = maximum;
+            outputString = "Максимальная";
+        }
         for (Employee variable : employees) {
-            if (evaluateCell(variable)) {
-                if (maximum == variable.getSalary()) {
+            if (variable.getFulname() != null && !variable.getFulname().isBlank()) {
+                if (minimumOrMaximum == variable.getSalary()) {
                     counter++;
                     System.out.println(variable);
                 }
             }
         }
-        System.out.printf("%s", "Максимальная зарплата сотрудника предприятия составляет: ");
-        System.out.printf("%.2f%s%d%s\n", maximum, " и её получает ", counter, " человек(а)");
+        System.out.printf("\n%s%s", outputString, " зарплата сотрудника предприятия составляет: ");
+        System.out.printf("%.2f%s%d%s\n", minimumOrMaximum, " руб. и её получает ", counter, " человек(а)");
     }
 
     static void displayListEmployees() {
         System.out.printf("%35s\n", "Фамилия имя отчество");
         for (Employee variable : employees) {
             if (evaluateCell(variable)) {
-                System.out.printf("%35s\n", variable.getSurnameNamePatrnimic());
+                System.out.printf("%35s\n", variable.getFulname());
             }
         }
     }
 
-
     public static void main(String[] args) {
-        System.out.println("""
-                -------------------------КУРСОВОЕ ЗАДАНИЕ-------------------------------
-                ----------------------- КНИГА СОТРУДНИКОВ-------------------------------
-                ------------------------------------------------------------------------
-                """);
-        System.out.println("------------------------БАЗОВАЯ СЛОЖНОСТЬ-------------------------------\n");
-        System.out.println("--------------------a) список всех сотрудников--------------------------\n");
+        printTitle("КУРСОВОЕ ЗАДАНИЕ");
+        printTitle("КНИГА СОТРУДНИКОВ");
+        printTitle("БАЗОВАЯ СЛОЖНОСТЬ");
+        printTitle("a) список всех сотрудников");
         outputTheTable();
-        System.out.println("\n--------------------b) сумму затрат на ЗП в месяц------------------------");
+        printTitle("b) сумму затрат на ЗП в месяц");
         if (calculateAmountExpenses() == 0 && countTheEmployees() != 0) {
             System.out.println("Руководитель не платит работникам зарплату, или таблица заполнена не коректно");
         } else if (countTheEmployees() == 0) {
             System.out.println("Штат пуст, трудоустраиваите людей на вакантные должности, или проверьте правильность ввода массива информации");
         } else {
             System.out.printf("%s%.2f%s\n", "Сумма затрат на зарплату сотрудникам составляет: ", calculateAmountExpenses(), " руб");
-            System.out.println("\n--------------------c) сотрудники предприятия с минимальной ЗП-----------");
-            findMinimumWage();
-            System.out.println("\n--------------------d) сотрудники предприятия с максимальной ЗП----------");
-            findMaximumWage();
-            System.out.println("\n--------------------e) среднее значение зарплат на предприятии-----------");
+            printTitle("c) сотрудники предприятия с минимальной ЗП");
+            compareMoreLess("<");
+            printTitle("d) сотрудники предприятия с максимальной ЗП");
+            compareMoreLess(">");
+            printTitle("e) среднее значение зарплат на предприятии");
             System.out.printf("%s%.2f%s\n", "Среднее значение зарплат сотрудников предприятия составляет: ",
                     calculateAmountExpenses() / countTheEmployees(), " руб");
-            System.out.println("\n--------------------f) список ФИО всех сотрудников предприятия-----------");
+            printTitle("f) список ФИО всех сотрудников предприятия");
             displayListEmployees();
         }
     }

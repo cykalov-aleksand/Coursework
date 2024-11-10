@@ -1,13 +1,13 @@
 public class Employee {
     private final int id;
-    private String surnameNamePatrnimic;
+    private String fullName;
     private int departament;
     private float salary;
     static int counter = 0;
 
-    Employee(String surnameNamePatrnimic, int departament, float salary) {
+    Employee(String fullName, int departament, float salary) {
         id = ++counter;
-        this.surnameNamePatrnimic = surnameNamePatrnimic.trim();
+        this.fullName = fullName.trim();
         this.departament = departament;
         this.salary = salary;
     }
@@ -16,8 +16,8 @@ public class Employee {
         return this.id;
     }
 
-    public String getSurnameNamePatrnimic() {
-        return this.surnameNamePatrnimic;
+    public String getFulname() {
+        return this.fullName;
     }
 
     public int getDepartament() {
@@ -28,13 +28,8 @@ public class Employee {
         return this.salary;
     }
 
-    public void setSurnameNamePatrnimic(String surnameNamePatrnimic) {
-        if (surnameNamePatrnimic != null && !surnameNamePatrnimic.isBlank()) {
-            this.surnameNamePatrnimic = surnameNamePatrnimic.trim();
-        } else {
-            String error = "ОШИБКА ввода ФИО по ID= " + this.id;
-            throw new IllegalArgumentException(error);
-        }
+    public void setFullName(String fullName) {
+        this.fullName = fullName.trim();
     }
 
     public void setDepartament(int departament) {
@@ -47,7 +42,7 @@ public class Employee {
     }
 
     public void setSalary(float salary) {
-        if (salary > 0f && salary <= 1_000_000f) {
+        if (salary >= 0f && salary <= 1_000_000f) {
             this.salary = salary;
         } else {
             String error = "ОШИБКА ввода зарплаты сотрудника по ID= " + this.id;
@@ -57,12 +52,12 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format("%5d%35s%10d%20.2f%s", this.id, this.surnameNamePatrnimic, this.departament, this.salary, " руб");
+        return String.format("%5d%35s%10d%20.2f%s", this.id, this.fullName, this.departament, this.salary, " руб");
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(this.departament);
+        return Integer.hashCode(this.id)+java.util.Objects.hash(this.fullName) + Integer.hashCode(this.departament) + Float.hashCode(this.salary);
     }
 
     @Override
@@ -70,6 +65,8 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return (departament == employee.getDepartament());
+        return id == employee.getId()&&fullName.equals(employee.fullName) && Float.compare(salary, employee.salary) == 0 && departament == employee.getDepartament();
+
     }
 }
+
