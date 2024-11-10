@@ -54,10 +54,10 @@ public final class Main {
         return amount;
     }
 
-    static void compareMoreLess(String moreLess) {
+    static  void compareMoreLess(String moreLess) {
         float minimum = employees[0].getSalary();
         float maximum = employees[0].getSalary();
-        System.out.printf("%5s%35s%20s\n", "id", "Фамилия имя отчество", "Зарплата");
+        System.out.printf("%5s%35s%10s%20s\n", "id", "Фамилия имя отчество", "Отдел", "Зарплата");
         for (Employee variable : employees) {
             if (variable.getFulname() != null && !variable.getFulname().isBlank()) {
                 if (minimum > variable.getSalary()) {
