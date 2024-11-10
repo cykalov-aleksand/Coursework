@@ -15,9 +15,9 @@ public final class Main {
     static void printTitle(String title) {
         int lineLength = 100;
         int headerLength = title.length();
-        int dob = (lineLength - headerLength) / 2;
+        int numberOfCharacters = (lineLength - headerLength) / 2;
         String completion = "-";
-        System.out.println("\n" + completion.repeat(dob) + title + completion.repeat(dob));
+        System.out.println("\n" + completion.repeat(numberOfCharacters) + title + completion.repeat(numberOfCharacters));
     }
 
     static boolean evaluateCell(Employee element) {
