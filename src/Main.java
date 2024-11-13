@@ -21,7 +21,7 @@ public final class Main {
     }
 
     static boolean evaluateCell(Employee element) {
-        return (element.getFulname() != null && !element.getFulname().isBlank());
+        return (element.getFullname() != null && !element.getFullname().isBlank());
 
     }
 
@@ -59,7 +59,7 @@ public final class Main {
         float maximum = employees[0].getSalary();
         System.out.printf("%5s%35s%10s%20s\n", "id", "Фамилия имя отчество", "Отдел", "Зарплата");
         for (Employee variable : employees) {
-            if (variable.getFulname() != null && !variable.getFulname().isBlank()) {
+            if (variable.getFullname() != null && !variable.getFullname().isBlank()) {
                 if (minimum > variable.getSalary()) {
                     minimum = variable.getSalary();
                 }
@@ -76,7 +76,7 @@ public final class Main {
             outputString = "Максимальная";
         }
         for (Employee variable : employees) {
-            if (variable.getFulname() != null && !variable.getFulname().isBlank()) {
+            if (variable.getFullname() != null && !variable.getFullname().isBlank()) {
                 if (minimumOrMaximum == variable.getSalary()) {
                     counter++;
                     System.out.println(variable);
@@ -91,7 +91,7 @@ public final class Main {
         System.out.printf("%35s\n", "Фамилия имя отчество");
         for (Employee variable : employees) {
             if (evaluateCell(variable)) {
-                System.out.printf("%35s\n", variable.getFulname());
+                System.out.printf("%35s\n", variable.getFullname());
             }
         }
     }

@@ -3,7 +3,7 @@ public class Employee {
     private String fullName;
     private int departament;
     private float salary;
-    static int counter = 0;
+    private static int counter = 0;
 
     Employee(String fullName, int departament, float salary) {
         id = ++counter;
@@ -16,7 +16,7 @@ public class Employee {
         return this.id;
     }
 
-    public String getFulname() {
+    public String getFullname() {
         return this.fullName;
     }
 
